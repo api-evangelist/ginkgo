@@ -1,0 +1,25 @@
+generated: '2026-07-19'
+method: searched
+source: https://github.com/ginkgobioworks/ginkgo-ai-client
+docs: https://ginkgobioworks.github.io/ginkgo-ai-client/
+summary:
+  types: [apiKey]
+  api_key_in: [header]
+  oauth2_flows: []
+schemes:
+- name: ApiKeyAuth
+  type: apiKey
+  in: header
+  parameter_name: x-api-key
+  description: >-
+    All requests to the Ginkgo AI Model API authenticate with a per-account API
+    key passed in the `x-api-key` request header. Keys are issued (with usage
+    credits) from the models portal at https://models.ginkgobioworks.ai/ and
+    have the form xxxxxxx-xxxx-xxxx-xxxx-xxxxxxxx. The official Python client
+    reads the key from the GINKGOAI_API_KEY environment variable when not passed
+    explicitly.
+  key_format: xxxxxxx-xxxx-xxxx-xxxx-xxxxxxxx
+  env_var: GINKGOAI_API_KEY
+  registration_url: https://models.ginkgobioworks.ai/
+  sources:
+  - https://github.com/ginkgobioworks/ginkgo-ai-client
