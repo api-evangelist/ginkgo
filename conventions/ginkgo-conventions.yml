@@ -1,0 +1,74 @@
+generated: '2026-07-19'
+method: searched
+source: https://github.com/ginkgobioworks/ginkgo-ai-client
+docs: https://ginkgobioworks.github.io/ginkgo-ai-client/
+summary: >-
+  Cross-cutting request/response semantics for the Ginkgo AI Model API, captured
+  from the official Python client source and docs. The API is an asynchronous,
+  job-polling inference service — there is no idempotency-key contract, no
+  pagination surface, and no documented rate-limit headers.
+authentication:
+  style: api-key-header
+  header: x-api-key
+  see: authentication/ginkgo-authentication.yml
+base_url: https://api.ginkgobioworks.ai/v1
+async_model:
+  pattern: submit-then-poll
+  submit:
+    single: POST /v1/transforms/run
+    batch: POST /v1/batches/transforms/run
+  submit_response_field: result
+  submit_response_note: >-
+    The launch response returns a `result` field containing a job result URL
+    (of the form ...?jobId=...) to poll.
+  poll:
+    method: GET
+    target: the job result URL returned by the submit call
+    status_field: status
+    status_values: [PENDING, IN_PROGRESS, COMPLETE]
+    result_path: result[0].result
+    error_path: result[0].error
+  client_default_polling_delay_seconds: 1
+  client_default_timeout_seconds: 60
+request_body:
+  content_type: application/json
+  shape:
+    model: string
+    text: string
+    transforms:
+    - type: string   # e.g. EMBEDDING, MASKED_INFERENCE
+idempotency:
+  supported: false
+  note: >-
+    No idempotency-key header or parameter is documented in the client or docs;
+    the submit-then-poll model returns a job URL rather than deduplicating on a
+    caller-supplied key.
+pagination:
+  supported: false
+  note: >-
+    No pagination surface; batch requests return results in the same order as
+    the submitted queries.
+batching:
+  supported: true
+  endpoint: POST /v1/batches/transforms/run
+  ordering: results returned in submitted-query order
+  per_query_name: >-
+    Queries may carry a query_name that is echoed back on each result for
+    correlation and failure handling.
+error_envelope:
+  launch_failure: >-
+    A non-2xx launch response surfaces status_code + response text; the client
+    raises RequestError wrapping an IOError.
+  job_failure: >-
+    A COMPLETE job whose result[0].error is non-null is treated as a failed
+    query; the client raises RequestError carrying the query and result_url.
+  see: errors/ginkgo-error-codes.yml
+versioning:
+  scheme: uri-path
+  current: v1
+  see: lifecycle/ginkgo-lifecycle.yml
+rate_limiting:
+  documented: false
+  note: >-
+    Usage is metered against per-account credits issued from the models portal;
+    no rate-limit response headers are documented.

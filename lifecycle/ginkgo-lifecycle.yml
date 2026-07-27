@@ -1,0 +1,23 @@
+generated: '2026-07-19'
+method: searched
+source: https://github.com/ginkgobioworks/ginkgo-ai-client
+docs: https://ginkgobioworks.github.io/ginkgo-ai-client/
+versioning:
+  scheme: uri-path
+  current: v1
+  evidence: >-
+    Endpoints are versioned in the path — https://api.ginkgobioworks.ai/v1/...
+    (transforms/run and batches/transforms/run).
+deprecation:
+  policy_url: null
+  sunset_header: false
+  note: No deprecation or Sunset/Deprecation (RFC 8594) policy is documented.
+sla:
+  url: null
+  uptime_target: null
+status_page: null
+note: >-
+  No public status page, SLA, or deprecation policy was found for the Ginkgo AI
+  Model API. The API is versioned by URI path (v1). Model availability evolves
+  (several models are listed as "coming soon" in the docs).
+deprecated_operations: []

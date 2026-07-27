@@ -1,7 +1,17 @@
 aid: ginkgo
-name: Ginkgo
-description: Ginkgo is a company surfaced as a portfolio company of felicis and added to the API Evangelist
-  network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+name: Ginkgo Bioworks
+description: >-
+  Ginkgo Bioworks is a synthetic biology company operating autonomous labs and
+  a horizontal platform for engineering biology. Its public developer surface is
+  the Ginkgo AI Model API (api.ginkgobioworks.ai), which runs inference on public
+  and Ginkgo-proprietary biological foundation models — protein and DNA masked
+  language models and embedding models such as ESM2 (650M/3B), ginkgo-aa0-650M,
+  and ginkgo-maskedlm-3utr-v1. The API is an async, job-polling REST service:
+  callers POST a transform request, receive a job result URL, and poll until the
+  job completes. Authentication is via an x-api-key header, credits and keys are
+  issued from the models portal, and an official Python client (ginkgo-ai-client)
+  is published to PyPI. Ginkgo was surfaced as a Felicis portfolio company and
+  enriched into the API Evangelist network.
 url: https://raw.githubusercontent.com/api-evangelist/ginkgo/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -9,12 +19,57 @@ x-backed-by:
 - felicis
 x-tier: stub
 x-tier-reason: portfolio-lead
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://www.ginkgobioworks.com/favicon.ico
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-19'
 tags:
 - Company
-apis: []
+- Synthetic Biology
+- Biotechnology
+- Artificial Intelligence
+- Machine Learning
+- Protein Models
+- Bioinformatics
+- Inference API
+apis:
+- name: Ginkgo AI Model API
+  description: >-
+    Async, job-polling REST API for running inference on public and
+    Ginkgo-proprietary biological foundation models — protein/DNA masked
+    language modeling and mean-embedding generation. Authenticated with an
+    x-api-key header; an official Python client is published on PyPI.
+  humanURL: https://ginkgobioworks.github.io/ginkgo-ai-client/
+  baseURL: https://api.ginkgobioworks.ai/v1
+  tags:
+  - Artificial Intelligence
+  - Protein Models
+  - Inference API
+  properties:
+  - type: Documentation
+    url: https://ginkgobioworks.github.io/ginkgo-ai-client/
+  - type: Authentication
+    url: authentication/ginkgo-authentication.yml
+  - type: Conventions
+    url: conventions/ginkgo-conventions.yml
+  - type: ErrorCatalog
+    url: errors/ginkgo-error-codes.yml
+  - type: Lifecycle
+    url: lifecycle/ginkgo-lifecycle.yml
+  - type: MCPServer
+    url: mcp/ginkgo-mcp.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -22,4 +77,39 @@ maintainers:
   email: info@apis.io
 common:
 - type: Website
-  url: https://ginkgo.bio
+  url: https://www.ginkgobioworks.com
+- type: DeveloperPortal
+  url: https://ginkgobioworks.github.io/ginkgo-ai-client/
+- type: Documentation
+  url: https://ginkgobioworks.github.io/ginkgo-ai-client/
+- type: APIReference
+  url: https://ginkgobioworks.github.io/ginkgo-ai-client/api_reference.html
+- type: GettingStarted
+  url: https://ginkgobioworks.github.io/ginkgo-ai-client/
+- type: SignUp
+  url: https://models.ginkgobioworks.ai/
+- type: GitHubOrganization
+  url: https://github.com/ginkgobioworks
+- type: Packages
+  url: packages/ginkgo-packages.yml
+- type: SDKs
+  url: packages/ginkgo-packages.yml
+- type: Authentication
+  url: authentication/ginkgo-authentication.yml
+- type: Conventions
+  url: conventions/ginkgo-conventions.yml
+- type: ErrorCatalog
+  url: errors/ginkgo-error-codes.yml
+- type: Lifecycle
+  url: lifecycle/ginkgo-lifecycle.yml
+- type: MCPServer
+  url: mcp/ginkgo-mcp.yml
+- type: DomainSecurity
+  url: security/ginkgo-domain-security.yml
+- type: LLMsTxt
+  url: llms/ginkgo-llms.txt
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence

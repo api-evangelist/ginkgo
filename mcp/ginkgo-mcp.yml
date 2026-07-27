@@ -1,0 +1,32 @@
+generated: '2026-07-19'
+method: derived
+status: candidate
+source: https://github.com/ginkgobioworks/ginkgo-ai-client
+note: >-
+  No official hosted/remote MCP server was found for Ginkgo (no listing in the
+  MCP registry, no @modelcontextprotocol package, none referenced in the docs).
+  This is a CANDIDATE tool surface derived from the two documented API endpoints
+  and the client's query types, provided as a starting point for an MCP wrapper.
+server:
+  name: ginkgo-ai
+  transport: http
+tools:
+- name: run_transform
+  description: >-
+    Run a single inference transform (masked language modeling or mean
+    embedding) on a protein or DNA sequence against a Ginkgo AI model.
+  source_operation: POST https://api.ginkgobioworks.ai/v1/transforms/run
+  inputs:
+    model: string
+    text: string
+    transforms: array
+- name: run_batch_transform
+  description: >-
+    Submit a batch of inference transforms in a single request; results return
+    in submitted order.
+  source_operation: POST https://api.ginkgobioworks.ai/v1/batches/transforms/run
+- name: get_job_result
+  description: >-
+    Poll a job result URL returned by a submit call until status is COMPLETE and
+    return the parsed result.
+  source_operation: GET <job result URL>

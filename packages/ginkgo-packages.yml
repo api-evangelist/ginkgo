@@ -1,0 +1,17 @@
+generated: '2026-07-19'
+method: searched
+source: https://pypi.org/project/ginkgo-ai-client/
+packages:
+- language: python
+  registry: pypi
+  name: ginkgo-ai-client
+  version: 0.9.0
+  url: https://pypi.org/project/ginkgo-ai-client/
+  repository: https://github.com/ginkgobioworks/ginkgo-ai-client
+  install: pip install ginkgo-ai-client
+  official: true
+  description: >-
+    Official Python client for the public Ginkgo AI Model API. Wraps the
+    /v1/transforms/run and /v1/batches/transforms/run endpoints, handles the
+    async job-polling loop, and provides typed query/response helpers
+    (MaskedInferenceQuery, MeanEmbeddingQuery) for protein and DNA models.

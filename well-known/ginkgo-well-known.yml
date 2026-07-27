@@ -1,0 +1,23 @@
+generated: '2026-07-19'
+method: searched
+note: >-
+  No /.well-known/ discovery documents were found on the Ginkgo hosts. All
+  probes returned 404 (or the host was unreachable). Recorded for auditability;
+  no WellKnown/SecurityTxt pointer is emitted because nothing was found.
+hosts:
+- host: https://ginkgo.bio
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+- host: https://www.ginkgobioworks.com
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+- host: https://ginkgobioworks.ai
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+- host: https://api.ginkgobioworks.ai
+  documents:
+  - {path: /.well-known/security.txt, status: 0, note: connection timed out (unauthenticated)}

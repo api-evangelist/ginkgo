@@ -1,0 +1,55 @@
+generated: '2026-07-19'
+method: searched
+source: https://github.com/ginkgobioworks/ginkgo-ai-client
+docs: https://ginkgobioworks.github.io/ginkgo-ai-client/
+format: client-error-model
+summary: >-
+  The Ginkgo AI Model API does not publish an OpenAPI spec or an RFC 9457
+  problem-details registry. This catalog is derived from the official Python
+  client's error handling. Failures fall into two classes: transport/launch
+  failures (a non-2xx HTTP response to the submit call) and job-level failures
+  (a COMPLETE job whose per-query `error` field is populated). The client wraps
+  both in a single RequestError exception carrying the originating query and,
+  when available, the polled result URL.
+envelope:
+  launch_failure_fields: [status_code, text]
+  job_failure_field: result[0].error
+  job_status_field: result[0].status
+errors:
+- id: launch-http-error
+  class: transport
+  trigger: >-
+    The POST to /v1/transforms/run (or /v1/batches/transforms/run) returns a
+    non-2xx status. The raw HTTP status_code and response body text are surfaced.
+  client_exception: RequestError (cause=IOError)
+  remediation: >-
+    Inspect the returned status_code and body; verify the x-api-key header,
+    account credits, and request body shape (model, text, transforms).
+- id: unexpected-launch-format
+  class: protocol
+  trigger: >-
+    The launch response is 2xx but does not contain a pollable `result` job URL.
+  client_exception: RequestError (cause=IOError)
+  remediation: Retry; if persistent, report the malformed launch response to Ginkgo.
+- id: job-error
+  class: inference
+  trigger: >-
+    A COMPLETE job whose result[0].error is non-null — the model rejected or
+    failed the query (e.g. invalid sequence characters or unsupported model).
+  client_exception: RequestError (cause=IOError, carries result_url)
+  remediation: >-
+    Validate the sequence against the model's allowed alphabet
+    (protein/DNA/DNA-IUPAC) and confirm the model name is supported.
+- id: job-timeout
+  class: timeout
+  trigger: >-
+    The job stays PENDING/IN_PROGRESS beyond the client timeout (default 60s).
+  client_exception: RequestError (cause=TimeoutError, carries result_url)
+  remediation: >-
+    Increase the timeout, or re-poll the carried result_url later — the result
+    may still complete server-side.
+- id: unexpected-status
+  class: protocol
+  trigger: A poll response returns a status other than PENDING/IN_PROGRESS/COMPLETE.
+  client_exception: RequestError (cause=IOError, carries result_url)
+  remediation: Report the unexpected status value to Ginkgo.
