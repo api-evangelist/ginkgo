@@ -53,10 +53,10 @@ tags:
 - Synthetic Biology
 - Biotechnology
 - Artificial Intelligence
-- Machine-Learning
+- Machine Learning
 - Protein Models
 - Bioinformatics
-- Inference API
+- Inference
 tags_raw:
 - Company
 - Synthetic Biology
@@ -66,6 +66,7 @@ tags_raw:
 - Protein Models
 - Bioinformatics
 - Inference API
+- Machine-Learning
 apis:
 - name: Ginkgo AI Model API
   description: >-
@@ -76,6 +77,10 @@ apis:
   humanURL: https://ginkgobioworks.github.io/ginkgo-ai-client/
   baseURL: https://api.ginkgobioworks.ai/v1
   tags:
+  - Artificial Intelligence
+  - Protein Models
+  - Inference
+  tags_raw:
   - Artificial Intelligence
   - Protein Models
   - Inference API
